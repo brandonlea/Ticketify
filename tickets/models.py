@@ -65,7 +65,7 @@ class Ticket(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.event.title} - {self.get_ticket_type_display()} (€{self.price})"
+        return f"{self.event.title} - {self.get_ticket_type_display()} (£{self.price})"
 
     @property
     def quantity_remaining(self):

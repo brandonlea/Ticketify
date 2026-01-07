@@ -52,7 +52,7 @@ def checkout(request):
 
             intent = stripe.PaymentIntent.create(
                 amount=int(order.order_total * 100),
-                currency='eur',
+                currency='gbp',
                 metadata={
                     'order_id': str(order.id),
                     'order_number': order.order_number,
