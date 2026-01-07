@@ -19,6 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from events import views as event_views
+from events import error_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,3 +33,16 @@ urlpatterns = [
 # Serve media files in development
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # Test URLs for error pages (only in DEBUG mode)
+    urlpatterns += [
+        path('test-404/', error_views.custom_404, name='test_404'),
+        path('test-500/', error_views.custom_500, name='test_500'),
+        path('test-403/', error_views.custom_403, name='test_403'),
+        path('test-400/', error_views.custom_400, name='test_400'),
+    ]
+
+# Custom error handlers
+handler404 = 'events.error_views.custom_404'
+handler500 = 'events.error_views.custom_500'
+handler403 = 'events.error_views.custom_403'
+handler400 = 'events.error_views.custom_400'
