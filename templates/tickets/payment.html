@@ -13,12 +13,52 @@
         </div>
 
         <form id="payment-form" class="space-y-6">
-            <div>
-                <label for="card-element" class="block text-sm font-medium text-gray-700 mb-2">
-                    Card Details
-                </label>
-                <div id="card-element" class="p-4 border border-gray-300 rounded-lg"></div>
-                <div id="card-errors" class="text-red-600 text-sm mt-2"></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="md:col-span-2">
+                    <label for="card-element" class="block text-sm font-medium text-gray-700 mb-2">
+                        Card Details
+                    </label>
+                    <div id="card-element" class="p-4 border border-gray-300 rounded-lg"></div>
+                    <div id="card-errors" class="text-red-600 text-sm mt-2"></div>
+                </div>
+
+                <div>
+                    <label for="billing-country" class="block text-sm font-medium text-gray-700 mb-2">
+                        Country *
+                    </label>
+                    <select
+                        id="billing-country"
+                        name="billing_country"
+                        required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    >
+                        <option value="GB" {% if order.country == 'United Kingdom' or order.country == 'GB' %}selected{% endif %}>United Kingdom</option>
+                        <option value="IE" {% if order.country == 'Ireland' or order.country == 'IE' %}selected{% endif %}>Ireland</option>
+                        <option value="US" {% if order.country == 'United States' or order.country == 'US' %}selected{% endif %}>United States</option>
+                        <option value="CA" {% if order.country == 'Canada' or order.country == 'CA' %}selected{% endif %}>Canada</option>
+                        <option value="AU" {% if order.country == 'Australia' or order.country == 'AU' %}selected{% endif %}>Australia</option>
+                        <option value="FR" {% if order.country == 'France' or order.country == 'FR' %}selected{% endif %}>France</option>
+                        <option value="DE" {% if order.country == 'Germany' or order.country == 'DE' %}selected{% endif %}>Germany</option>
+                        <option value="ES" {% if order.country == 'Spain' or order.country == 'ES' %}selected{% endif %}>Spain</option>
+                        <option value="IT" {% if order.country == 'Italy' or order.country == 'IT' %}selected{% endif %}>Italy</option>
+                        <option value="NL" {% if order.country == 'Netherlands' or order.country == 'NL' %}selected{% endif %}>Netherlands</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="billing-postcode" id="postcode-label" class="block text-sm font-medium text-gray-700 mb-2">
+                        Post Code *
+                    </label>
+                    <input
+                        type="text"
+                        id="billing-postcode"
+                        name="billing_postcode"
+                        value="{{ order.post_code }}"
+                        required
+                        placeholder="Enter your post code"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    >
+                </div>
             </div>
 
             <button
@@ -44,6 +84,7 @@
     const stripe = Stripe('{{ stripe_public_key }}');
     const elements = stripe.elements();
     const cardElement = elements.create('card', {
+        hidePostalCode: true,
         style: {
             base: {
                 fontSize: '16px',
@@ -76,6 +117,35 @@
     const buttonText = document.getElementById('button-text');
     const spinner = document.getElementById('spinner');
 
+    // Update post code label based on country
+    const countrySelect = document.getElementById('billing-country');
+    const postcodeLabel = document.getElementById('postcode-label');
+    const postcodeInput = document.getElementById('billing-postcode');
+
+    function updatePostCodeLabel() {
+        const country = countrySelect.value;
+
+        if (country === 'US') {
+            postcodeLabel.textContent = 'ZIP Code *';
+            postcodeInput.placeholder = 'Enter your ZIP code';
+        } else if (country === 'IE') {
+            postcodeLabel.textContent = 'Eircode *';
+            postcodeInput.placeholder = 'Enter your Eircode';
+        } else if (country === 'CA') {
+            postcodeLabel.textContent = 'Postal Code *';
+            postcodeInput.placeholder = 'Enter your postal code';
+        } else {
+            postcodeLabel.textContent = 'Post Code *';
+            postcodeInput.placeholder = 'Enter your post code';
+        }
+    }
+
+    // Update label on page load
+    updatePostCodeLabel();
+
+    // Update label when country changes
+    countrySelect.addEventListener('change', updatePostCodeLabel);
+
     form.addEventListener('submit', async function(event) {
         event.preventDefault();
 
@@ -83,11 +153,25 @@
         buttonText.classList.add('hidden');
         spinner.classList.remove('hidden');
 
+        // Get billing details
+        const billingCountry = document.getElementById('billing-country').value;
+        const billingPostcode = document.getElementById('billing-postcode').value;
+
         const {error, paymentIntent} = await stripe.confirmCardPayment(
             '{{ client_secret }}',
             {
                 payment_method: {
                     card: cardElement,
+                    billing_details: {
+                        name: '{{ order.full_name }}',
+                        email: '{{ order.email }}',
+                        address: {
+                            line1: '{{ order.address }}',
+                            city: '{{ order.city }}',
+                            postal_code: billingPostcode,
+                            country: billingCountry
+                        }
+                    }
                 }
             }
         );
