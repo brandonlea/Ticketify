@@ -124,6 +124,10 @@ class Order(models.Model):
     full_name = models.CharField(max_length=50)
     email = models.EmailField(max_length=254)
     phone_number = models.CharField(max_length=20)
+    address = models.CharField(max_length=100, default='')
+    city = models.CharField(max_length=50, default='')
+    post_code = models.CharField(max_length=20, default='')
+    country = models.CharField(max_length=50, default='')
     date = models.DateTimeField(auto_now_add=True)
     order_total = models.DecimalField(
         max_digits=10,
