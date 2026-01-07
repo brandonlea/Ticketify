@@ -46,6 +46,10 @@ def checkout(request):
 
         # Create Stripe payment intent
         try:
+            # Verify we have a valid API key
+            if not settings.STRIPE_SECRET_KEY or not settings.STRIPE_SECRET_KEY.startswith('sk_'):
+                raise ValueError('Invalid Stripe API key configuration')
+
             intent = stripe.PaymentIntent.create(
                 amount=int(order.order_total * 100),
                 currency='eur',
@@ -64,6 +68,10 @@ def checkout(request):
                 'client_secret': intent.client_secret,
             })
 
+        except stripe.error.AuthenticationError as e:
+            messages.error(request, 'Stripe authentication failed. Please check API keys.')
+            order.delete()
+            return redirect('cart:cart_detail')
         except Exception as e:
             messages.error(request, f'Payment error: {str(e)}')
             order.delete()

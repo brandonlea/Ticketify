@@ -150,6 +150,6 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
 # Stripe settings
-STRIPE_PUBLIC_KEY = config('STRIPE_PUBLIC_KEY', default='')
-STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY', default='')
-STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET', default='')
+STRIPE_PUBLIC_KEY = config('STRIPE_PUBLIC_KEY', default='').strip()
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY', default='').strip()
+STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET', default='').strip()
