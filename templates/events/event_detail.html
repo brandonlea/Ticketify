@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ event.title }} - Ticketify{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <!-- Breadcrumb -->
+    <nav class="text-sm mb-8">
+        <a href="{% url 'home' %}" class="text-indigo-600 hover:text-indigo-700">Home</a>
+        <span class="mx-2">/</span>
+        <a href="{% url 'events:event_list' %}" class="text-indigo-600 hover:text-indigo-700">Events</a>
+        <span class="mx-2">/</span>
+        <span class="text-gray-600">{{ event.title }}</span>
+    </nav>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Event Details -->
+        <div class="lg:col-span-2">
+            {% if event.image %}
+            <img src="{{ event.image.url }}" alt="{{ event.title }}" class="w-full h-96 object-cover rounded-lg mb-6">
+            {% else %}
+            <div class="w-full h-96 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-lg mb-6"></div>
+            {% endif %}
+
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                {% if event.category %}
+                <span class="inline-block bg-indigo-100 text-indigo-800 text-sm px-3 py-1 rounded-full mb-4">
+                    {{ event.category.name }}
+                </span>
+                {% endif %}
+                <h1 class="text-4xl font-bold mb-4">{{ event.title }}</h1>
+
+                <div class="grid grid-cols-2 gap-4 mb-6 text-gray-600">
+                    <div>
+                        <p class="text-sm font-semibold text-gray-700">Date & Time</p>
+                        <p>{{ event.event_date|date:"l, F d, Y" }}</p>
+                        <p>{{ event.event_date|date:"g:i A" }}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm font-semibold text-gray-700">Venue</p>
+                        <p>{{ event.venue }}</p>
+                        <p>{{ event.city }}, {{ event.country }}</p>
+                    </div>
+                </div>
+
+                {% if event.capacity_percentage %}
+                <div class="mb-6">
+                    <div class="flex justify-between text-sm mb-2">
+                        <span class="font-semibold text-gray-700">Event Capacity</span>
+                        <span class="text-gray-600">{{ event.total_tickets_sold }} / {{ event.capacity }} sold</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="bg-indigo-600 h-2 rounded-full" style="width: {{ event.capacity_percentage }}%"></div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="prose max-w-none">
+                    <h2 class="text-2xl font-bold mb-4">About This Event</h2>
+                    <p class="text-gray-700 whitespace-pre-wrap">{{ event.description }}</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-bold mb-4">Location</h2>
+                <p class="font-semibold">{{ event.venue }}</p>
+                <p class="text-gray-600">{{ event.address }}</p>
+                <p class="text-gray-600">{{ event.city }}, {{ event.country }}</p>
+            </div>
+        </div>
+
+        <!-- Ticket Selection -->
+        <div class="lg:col-span-1">
+            <div class="bg-white p-6 rounded-lg shadow-md sticky top-4">
+                <h2 class="text-2xl font-bold mb-4">Select Tickets</h2>
+
+                {% if event.is_past %}
+                <div class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg mb-4">
+                    This event has already passed.
+                </div>
+                {% elif event.is_at_capacity %}
+                <div class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg mb-4">
+                    This event has reached full capacity.
+                </div>
+                {% elif not event.has_available_tickets %}
+                <div class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg mb-4">
+                    All tickets are sold out.
+                </div>
+                {% elif tickets %}
+                <div class="space-y-4">
+                    {% for ticket in tickets %}
+                    <div class="border border-gray-200 rounded-lg p-4 {% if not ticket.is_available %}opacity-50{% endif %}">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h3 class="font-semibold text-lg">{{ ticket.get_ticket_type_display }}</h3>
+                                {% if ticket.description %}
+                                <p class="text-sm text-gray-600 mt-1">{{ ticket.description }}</p>
+                                {% endif %}
+                            </div>
+                            <p class="text-2xl font-bold text-indigo-600">€{{ ticket.price }}</p>
+                        </div>
+
+                        {% if ticket.is_available %}
+                        <div class="flex items-center justify-between mt-4">
+                            <p class="text-sm text-gray-600">{{ ticket.quantity_remaining }} remaining</p>
+                            <form method="post" action="#" class="flex items-center gap-2">
+                                {% csrf_token %}
+                                <input type="hidden" name="ticket_id" value="{{ ticket.id }}">
+                                <input type="number" name="quantity" value="1" min="1" max="{{ ticket.quantity_remaining }}"
+                                       class="w-20 px-3 py-2 border border-gray-300 rounded-lg">
+                                <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">
+                                    Add to Cart
+                                </button>
+                            </form>
+                        </div>
+                        {% else %}
+                        <p class="text-red-600 font-semibold mt-4">Sold Out</p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="bg-yellow-50 border border-yellow-200 text-yellow-800 px-4 py-3 rounded-lg">
+                    Tickets not yet available for this event.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
