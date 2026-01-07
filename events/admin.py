@@ -19,6 +19,7 @@ class EventAdmin(admin.ModelAdmin):
         'category',
         'city',
         'event_date',
+        'capacity',
         'is_active',
         'created_at'
     ]
@@ -36,7 +37,7 @@ class EventAdmin(admin.ModelAdmin):
             'fields': ('venue', 'address', 'city', 'country')
         }),
         ('Event Details', {
-            'fields': ('event_date', 'image', 'is_active')
+            'fields': ('event_date', 'capacity', 'image', 'is_active')
         }),
         ('Metadata', {
             'fields': ('created_by', 'created_at', 'updated_at'),

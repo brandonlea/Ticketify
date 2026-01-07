@@ -48,6 +48,10 @@ class Event(models.Model):
     city = models.CharField(max_length=100)
     country = models.CharField(max_length=100, default='Ireland')
     event_date = models.DateTimeField()
+    capacity = models.PositiveIntegerField(
+        default=1000,
+        help_text='Maximum venue capacity for this event'
+    )
     image = models.ImageField(
         upload_to='events/',
         null=True,
@@ -106,6 +110,14 @@ class Event(models.Model):
         return self.event_date < timezone.now()
 
     @property
+    def total_tickets_sold(self):
+        """Calculate total tickets sold across all ticket types"""
+        return sum(
+            ticket.quantity_sold
+            for ticket in self.tickets.all()
+        )
+
+    @property
     def total_tickets_available(self):
         """Calculate total tickets still available across all ticket types"""
         return sum(
@@ -117,6 +129,18 @@ class Event(models.Model):
     def has_available_tickets(self):
         """Check if event has any tickets available for purchase"""
         return self.total_tickets_available > 0
+
+    @property
+    def capacity_percentage(self):
+        """Calculate percentage of venue capacity sold"""
+        if self.capacity == 0:
+            return 0
+        return (self.total_tickets_sold / self.capacity) * 100
+
+    @property
+    def is_at_capacity(self):
+        """Check if event has reached venue capacity"""
+        return self.total_tickets_sold >= self.capacity
 
     @property
     def min_price(self):
