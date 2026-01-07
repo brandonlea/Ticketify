@@ -102,7 +102,7 @@ class Event(models.Model):
     def get_absolute_url(self):
         """Return the URL for this event"""
         from django.urls import reverse
-        return reverse('event_detail', kwargs={'slug': self.slug})
+        return reverse('events:event_detail', kwargs={'slug': self.slug})
 
     @property
     def is_past(self):

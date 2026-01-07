@@ -136,7 +136,9 @@ STATICFILES_DIRS = [
 ]
 
 # WhiteNoise configuration for serving static files
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+import sys
+if 'test' not in sys.argv:
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media files (User uploaded content)
 MEDIA_URL = 'media/'
@@ -146,7 +148,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 CLOUDINARY_URL = config('CLOUDINARY_URL', default='')
 
 # Use Cloudinary for media storage if credentials are provided
-if CLOUDINARY_URL:
+# Use simpler storage in tests to avoid manifest issues
+if CLOUDINARY_URL and 'test' not in sys.argv:
     STORAGES = {
         "default": {
             "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
