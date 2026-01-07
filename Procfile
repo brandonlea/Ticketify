@@ -1,0 +1,1 @@
+web: gunicorn Ticketify.wsgi:application
