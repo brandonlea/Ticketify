@@ -39,6 +39,9 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 media/
+*.pyc
+__pycache__/
+migrations/__pycache__/
 
 # Environment variables
 .env
