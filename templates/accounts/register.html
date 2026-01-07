@@ -3,8 +3,9 @@
 {% block title %}Register - Ticketify{% endblock %}
 
 {% block content %}
-<div class="max-w-md mx-auto">
-    <div class="bg-white p-8 rounded-lg shadow-md">
+<div class="flex items-center justify-center min-h-[calc(100vh-16rem)] py-12">
+    <div class="max-w-md w-full px-4">
+        <div class="bg-white p-8 rounded-lg shadow-md">
         <h1 class="text-3xl font-bold mb-6">Create Account</h1>
 
         <form method="post" class="space-y-4">
@@ -87,6 +88,7 @@
             Already have an account?
             <a href="{% url 'accounts:login' %}" class="text-indigo-600 hover:text-indigo-700 font-semibold">Log in</a>
         </p>
+        </div>
     </div>
 </div>
 {% endblock %}

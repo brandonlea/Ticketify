@@ -83,12 +83,14 @@
     </nav>
 
     {% if messages %}
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
-        {% for message in messages %}
-        <div class="rounded-lg p-4 mb-4 shadow-sm {% if message.tags == 'error' %}bg-red-50 text-red-800 border border-red-200{% elif message.tags == 'success' %}bg-green-50 text-green-800 border border-green-200{% elif message.tags == 'warning' %}bg-yellow-50 text-yellow-800 border border-yellow-200{% else %}bg-blue-50 text-blue-800 border border-blue-200{% endif %}">
-            <p class="font-medium">{{ message }}</p>
+    <div class="fixed top-20 left-0 right-0 z-[60] px-4 sm:px-6 lg:px-8 pointer-events-none">
+        <div class="max-w-7xl mx-auto">
+            {% for message in messages %}
+            <div class="alert-message rounded-lg p-4 mb-4 shadow-lg pointer-events-auto {% if message.tags == 'error' %}bg-red-50 text-red-800 border border-red-200{% elif message.tags == 'success' %}bg-green-50 text-green-800 border border-green-200{% elif message.tags == 'warning' %}bg-yellow-50 text-yellow-800 border border-yellow-200{% else %}bg-blue-50 text-blue-800 border border-blue-200{% endif %}">
+                <p class="font-medium">{{ message }}</p>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
     {% endif %}
 
@@ -107,6 +109,7 @@
     </footer>
 
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/messages.js' %}"></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>
