@@ -82,22 +82,12 @@ def payment_success(request, order_number):
     """
     order = get_object_or_404(Order, order_number=order_number, user=request.user)
 
-    if order.paid:
-        # Update ticket quantities
-        for item in order.lineitems.all():
-            ticket = item.ticket
-            ticket.quantity_sold += item.quantity
-            ticket.save()
+    # Clear the cart
+    cart = Cart(request)
+    cart.clear()
 
-        # Clear the cart
-        cart = Cart(request)
-        cart.clear()
-
-        messages.success(request, f'Order {order.order_number} completed successfully!')
-        return render(request, 'tickets/payment_success.html', {'order': order})
-    else:
-        messages.error(request, 'Payment not confirmed.')
-        return redirect('cart:cart_detail')
+    messages.success(request, f'Order {order.order_number} completed successfully!')
+    return render(request, 'tickets/payment_success.html', {'order': order})
 
 
 @csrf_exempt
