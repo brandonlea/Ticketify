@@ -5,30 +5,30 @@
 {% block title %}Ticketify - Book Your Event Tickets{% endblock %}
 
 {% block content %}
-<!-- Hero Section with Image Overlay -->
+<!-- Hero Section -->
 <div class="hero-section relative -mt-8 pt-8">
-    <div class="relative min-h-[600px] flex items-center">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <div class="relative min-h-[500px] md:min-h-[600px] flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
             <div class="max-w-3xl">
-                <h1 class="font-display text-6xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                <h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 md:mb-6 leading-tight">
                     Discover
                     <span class="block bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
                         Unforgettable
                     </span>
                     Experiences
                 </h1>
-                <p class="text-xl md:text-2xl text-gray-200 mb-10 leading-relaxed">
-                    Book tickets for concerts, sports, theatre, and exclusive events. Your next adventure starts here.
+                <p class="text-lg sm:text-xl md:text-2xl text-gray-200 mb-8 md:mb-10 leading-relaxed">
+                    Book tickets for concerts, sports, theatre, and exclusive events.
                 </p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="{% url 'events:event_list' %}" class="inline-flex items-center bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:shadow-2xl hover:scale-105 transition-all text-lg">
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="{% url 'events:event_list' %}" class="inline-flex items-center justify-center bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:shadow-2xl hover:scale-105 transition-all text-base md:text-lg">
                         Explore Events
                         <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                         </svg>
                     </a>
                     {% if not user.is_authenticated %}
-                    <a href="{% url 'accounts:register' %}" class="inline-flex items-center bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 px-8 py-4 rounded-full font-semibold hover:bg-white/20 transition-all text-lg">
+                    <a href="{% url 'accounts:register' %}" class="inline-flex items-center justify-center bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 px-8 py-4 rounded-full font-semibold hover:bg-white/20 transition-all text-base md:text-lg">
                         Sign Up Free
                     </a>
                     {% endif %}

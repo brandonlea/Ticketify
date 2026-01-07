@@ -20,23 +20,17 @@
 <body class="bg-gray-50 min-h-screen flex flex-col">
     <nav class="bg-white/95 backdrop-blur-sm shadow-sm sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20">
-                <div class="flex items-center">
-                    <a href="/" class="flex-shrink-0 flex items-center">
-                        <h1 class="text-3xl font-display font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Ticketify</h1>
-                    </a>
-                    <div class="hidden sm:ml-12 sm:flex sm:space-x-8">
-                        {% block nav_links %}
-                        <a href="/" class="text-gray-700 hover:text-indigo-600 inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors">
-                            Home
-                        </a>
-                        <a href="{% url 'events:event_list' %}" class="text-gray-700 hover:text-indigo-600 inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors">
-                            Events
-                        </a>
-                        {% endblock %}
-                    </div>
-                </div>
-                <div class="flex items-center gap-6">
+            <div class="flex justify-between items-center h-16 md:h-20">
+                <!-- Logo -->
+                <a href="/" class="flex-shrink-0">
+                    <h1 class="text-2xl md:text-3xl font-display font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Ticketify</h1>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="/" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors">Home</a>
+                    <a href="{% url 'events:event_list' %}" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors">Events</a>
+
                     <a href="{% url 'cart:cart_detail' %}" class="relative text-gray-700 hover:text-indigo-600 transition-colors">
                         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
@@ -47,18 +41,42 @@
                         </span>
                         {% endif %}
                     </a>
+
                     {% if user.is_authenticated %}
                     <a href="{% url 'accounts:profile' %}" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors">My Account</a>
-                    <a href="{% url 'accounts:logout' %}" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2.5 rounded-full hover:shadow-lg transition-all font-medium">
-                        Logout
-                    </a>
+                    <a href="{% url 'accounts:logout' %}" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2.5 rounded-full hover:shadow-lg transition-all font-medium">Logout</a>
                     {% else %}
                     <a href="{% url 'accounts:login' %}" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors">Login</a>
-                    <a href="{% url 'accounts:register' %}" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2.5 rounded-full hover:shadow-lg transition-all font-medium">
-                        Sign Up
-                    </a>
+                    <a href="{% url 'accounts:register' %}" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2.5 rounded-full hover:shadow-lg transition-all font-medium">Sign Up</a>
                     {% endif %}
-                    {% block nav_actions %}{% endblock %}
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-700 hover:text-indigo-600 transition-colors">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <div class="flex flex-col space-y-3">
+                    <a href="/" class="text-gray-700 hover:text-indigo-600 font-medium py-2">Home</a>
+                    <a href="{% url 'events:event_list' %}" class="text-gray-700 hover:text-indigo-600 font-medium py-2">Events</a>
+                    <a href="{% url 'cart:cart_detail' %}" class="text-gray-700 hover:text-indigo-600 font-medium py-2 flex items-center gap-2">
+                        Cart
+                        {% if cart|length > 0 %}
+                        <span class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-semibold">{{ cart|length }}</span>
+                        {% endif %}
+                    </a>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'accounts:profile' %}" class="text-gray-700 hover:text-indigo-600 font-medium py-2">My Account</a>
+                    <a href="{% url 'accounts:logout' %}" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2.5 rounded-full text-center font-medium">Logout</a>
+                    {% else %}
+                    <a href="{% url 'accounts:login' %}" class="text-gray-700 hover:text-indigo-600 font-medium py-2">Login</a>
+                    <a href="{% url 'accounts:register' %}" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2.5 rounded-full text-center font-medium">Sign Up</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -88,6 +106,7 @@
         </div>
     </footer>
 
+    <script src="{% static 'js/main.js' %}"></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>
