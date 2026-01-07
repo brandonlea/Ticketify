@@ -1,0 +1,19 @@
+{
+  "name": "ticketify",
+  "version": "1.0.0",
+  "description": "Ticketify - Django Ticketing System",
+  "scripts": {
+    "build:css": "tailwindcss -i ./static/src/input.css -o ./static/dist/output.css",
+    "watch:css": "tailwindcss -i ./static/src/input.css -o ./static/dist/output.css --watch",
+    "build": "npm run build:css -- --minify"
+  },
+  "keywords": [
+    "django",
+    "tailwindcss"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}
