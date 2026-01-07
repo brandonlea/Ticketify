@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block title %}Shopping Cart - Ticketify{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto">
+    <h1 class="text-4xl font-bold mb-8">Shopping Cart</h1>
+
+    {% if cart %}
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Cart Items -->
+        <div class="lg:col-span-2">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                {% for item in cart %}
+                <div class="p-6 border-b border-gray-200 last:border-b-0">
+                    <div class="flex justify-between items-start gap-4">
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">
+                                {{ item.ticket.event.title }}
+                            </h3>
+                            <p class="text-gray-600 mb-1">
+                                {{ item.ticket.get_ticket_type_display }} Ticket
+                            </p>
+                            <p class="text-gray-600 mb-1">
+                                {{ item.ticket.event.event_date|date:"F d, Y g:i A" }}
+                            </p>
+                            <p class="text-gray-600 mb-3">
+                                {{ item.ticket.event.venue }}, {{ item.ticket.event.city }}
+                            </p>
+                            <p class="text-lg font-semibold text-indigo-600">
+                                €{{ item.price }} each
+                            </p>
+                        </div>
+
+                        <div class="text-right">
+                            <p class="text-2xl font-bold text-gray-900 mb-4">
+                                €{{ item.total_price }}
+                            </p>
+
+                            <!-- Quantity Update Form -->
+                            <form method="post" action="{% url 'cart:cart_update' item.ticket.id %}" class="mb-2">
+                                {% csrf_token %}
+                                <div class="flex items-center gap-2 justify-end">
+                                    <label for="quantity-{{ item.ticket.id }}" class="text-sm text-gray-600">Qty:</label>
+                                    <input
+                                        type="number"
+                                        id="quantity-{{ item.ticket.id }}"
+                                        name="quantity"
+                                        value="{{ item.quantity }}"
+                                        min="1"
+                                        max="{{ item.ticket.available_quantity }}"
+                                        class="w-20 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                    >
+                                    <button
+                                        type="submit"
+                                        class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition text-sm"
+                                    >
+                                        Update
+                                    </button>
+                                </div>
+                            </form>
+
+                            <!-- Remove Button -->
+                            <form method="post" action="{% url 'cart:cart_remove' item.ticket.id %}">
+                                {% csrf_token %}
+                                <button
+                                    type="submit"
+                                    class="text-red-600 hover:text-red-800 text-sm font-medium"
+                                >
+                                    Remove
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="lg:col-span-1">
+            <div class="bg-white rounded-lg shadow-md p-6 sticky top-24">
+                <h2 class="text-2xl font-bold mb-6">Order Summary</h2>
+
+                <div class="space-y-4 mb-6">
+                    <div class="flex justify-between text-gray-600">
+                        <span>Items ({{ cart|length }})</span>
+                        <span>€{{ cart.get_total_price }}</span>
+                    </div>
+                    <div class="border-t border-gray-200 pt-4">
+                        <div class="flex justify-between text-xl font-bold">
+                            <span>Total</span>
+                            <span class="text-indigo-600">€{{ cart.get_total_price }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <a
+                    href="{% url 'tickets:checkout' %}"
+                    class="block w-full bg-indigo-600 text-white text-center px-6 py-3 rounded-lg hover:bg-indigo-700 transition font-semibold mb-3"
+                >
+                    Proceed to Checkout
+                </a>
+
+                <a
+                    href="{% url 'events:event_list' %}"
+                    class="block w-full text-center text-indigo-600 hover:text-indigo-800 font-medium"
+                >
+                    Continue Shopping
+                </a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="bg-white rounded-lg shadow-md p-12 text-center">
+        <svg class="mx-auto h-24 w-24 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+        </svg>
+        <h2 class="text-2xl font-bold text-gray-900 mb-2">Your cart is empty</h2>
+        <p class="text-gray-600 mb-6">Add some tickets to get started!</p>
+        <a
+            href="{% url 'events:event_list' %}"
+            class="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition font-semibold"
+        >
+            Browse Events
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

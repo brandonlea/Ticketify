@@ -25,6 +25,7 @@ urlpatterns = [
     path('', event_views.home, name='home'),
     path('events/', include('events.urls')),
     path('accounts/', include('accounts.urls')),
+    path('cart/', include('cart.urls')),
 ]
 
 # Serve media files in development
