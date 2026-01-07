@@ -38,9 +38,11 @@ def checkout(request):
             OrderLineItem.objects.create(
                 order=order,
                 ticket=item['ticket'],
-                price=item['price'],
                 quantity=item['quantity']
             )
+
+        # Update order total
+        order.update_total()
 
         # Create Stripe payment intent
         try:
