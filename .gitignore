@@ -1,22 +1,14 @@
-# Virtual environment
-.venv
-venv/
-env/
-ENV/
-
-# IDE
-.idea
-.vscode/
-*.swp
-*.swo
-*~
-
 # Python
+*.pyc
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
+env/
+venv/
+.venv/
+ENV/
 build/
 develop-eggs/
 dist/
@@ -38,23 +30,26 @@ wheels/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
-media/
-*.pyc
-__pycache__/
-migrations/__pycache__/
+/staticfiles/
+/media/
 
 # Environment variables
 .env
 .env.local
-.env.*.local
 
-# Static files
-staticfiles/
-static_root/
-
-# Node modules (for Tailwind)
-node_modules/
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 
 # OS
 .DS_Store
 Thumbs.db
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+node_modules/
