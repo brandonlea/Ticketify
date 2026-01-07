@@ -28,10 +28,10 @@ def cart_add(request, ticket_id):
         return redirect('events:event_detail', slug=ticket.event.slug)
 
     # Check if there are enough tickets available
-    if quantity > ticket.available_quantity:
+    if quantity > ticket.quantity_remaining:
         messages.error(
             request,
-            f'Only {ticket.available_quantity} tickets available for {ticket.event.title} - {ticket.get_ticket_type_display()}.'
+            f'Only {ticket.quantity_remaining} tickets available for {ticket.event.title} - {ticket.get_ticket_type_display()}.'
         )
         return redirect('events:event_detail', slug=ticket.event.slug)
 
@@ -62,10 +62,10 @@ def cart_update(request, ticket_id):
     quantity = int(request.POST.get('quantity', 1))
 
     # Check if there are enough tickets available
-    if quantity > ticket.available_quantity:
+    if quantity > ticket.quantity_remaining:
         messages.error(
             request,
-            f'Only {ticket.available_quantity} tickets available for {ticket.event.title} - {ticket.get_ticket_type_display()}.'
+            f'Only {ticket.quantity_remaining} tickets available for {ticket.event.title} - {ticket.get_ticket_type_display()}.'
         )
         return redirect('cart:cart_detail')
 

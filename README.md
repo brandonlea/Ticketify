@@ -3,6 +3,7 @@
 A professional event ticketing platform built with Django that allows users to browse events, purchase tickets, and manage their bookings with secure Stripe payment integration.
 
 ## Table of Contents
+
 - [Project Overview](#project-overview)
 - [Features](#features)
 - [User Experience Design](#user-experience-design)
