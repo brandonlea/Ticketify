@@ -30,10 +30,7 @@ def checkout(request):
             user=request.user,
             full_name=request.POST.get('full_name'),
             email=request.POST.get('email'),
-            phone=request.POST.get('phone'),
-            address=request.POST.get('address'),
-            city=request.POST.get('city'),
-            country=request.POST.get('country'),
+            phone_number=request.POST.get('phone'),
         )
 
         # Create order line items

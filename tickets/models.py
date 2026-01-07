@@ -53,7 +53,7 @@ class Ticket(models.Model):
                 errors['sale_end_date'] = 'Sale end date must be after sale start date.'
 
         # Validate quantity sold doesn't exceed available
-        if self.quantity_sold > self.quantity_available:
+        if self.quantity_available is not None and self.quantity_sold > self.quantity_available:
             errors['quantity_sold'] = 'Quantity sold cannot exceed quantity available.'
 
         if errors:
@@ -70,6 +70,8 @@ class Ticket(models.Model):
     @property
     def quantity_remaining(self):
         """Calculate remaining tickets"""
+        if self.quantity_available is None:
+            return 0
         return self.quantity_available - self.quantity_sold
 
     @property
@@ -102,7 +104,7 @@ class Ticket(models.Model):
     @property
     def percentage_sold(self):
         """Calculate percentage of tickets sold"""
-        if self.quantity_available == 0:
+        if self.quantity_available is None or self.quantity_available == 0:
             return 0
         return (self.quantity_sold / self.quantity_available) * 100
 
@@ -129,6 +131,7 @@ class Order(models.Model):
         default=0
     )
     stripe_pid = models.CharField(max_length=254, default='')
+    paid = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['-date']
