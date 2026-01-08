@@ -300,15 +300,15 @@ Wireframes were created to plan the user interface and demonstrate responsive la
 
 **Desktop View**
 
-![Homepage Desktop](docs/wireframes/01_homepage_desktop.png)
+![Homepage Desktop](docs/wireframes/desktop.png)
 
 **Tablet View**
 
-![Homepage Tablet](docs/wireframes/02_homepage_tablet.png)
+![Homepage Tablet](docs/wireframes/tablet.png)
 
 **Mobile View**
 
-![Homepage Mobile](docs/wireframes/03_homepage_mobile.png)
+![Homepage Mobile](docs/wireframes/mobile.png)
 
 ### Accessibility Considerations
 
