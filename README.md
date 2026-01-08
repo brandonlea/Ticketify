@@ -296,109 +296,19 @@ User Profile
 
 ### Wireframes
 
-All wireframes were designed to demonstrate responsive layouts across desktop, tablet, and mobile devices. Each key screen was planned to ensure consistent user experience regardless of device size.
+Wireframes were created to plan the user interface and demonstrate responsive layouts across desktop, tablet, and mobile devices.
 
-#### Homepage
+**Desktop View**
 
-**Desktop**
 ![Homepage Desktop](docs/wireframes/01_homepage_desktop.png)
 
-**Tablet**
+**Tablet View**
+
 ![Homepage Tablet](docs/wireframes/02_homepage_tablet.png)
 
-**Mobile**
+**Mobile View**
+
 ![Homepage Mobile](docs/wireframes/03_homepage_mobile.png)
-
----
-
-#### Events Page
-
-**Desktop**
-![Events Desktop](docs/wireframes/04_events_desktop.png)
-
-**Tablet**
-![Events Tablet](docs/wireframes/05_events_tablet.png)
-
-**Mobile**
-![Events Mobile](docs/wireframes/06_events_mobile.png)
-
----
-
-#### Event Detail Page
-
-**Desktop**
-![Event Detail Desktop](docs/wireframes/07_event_detail_desktop.png)
-
-**Tablet**
-![Event Detail Tablet](docs/wireframes/08_event_detail_tablet.png)
-
-**Mobile**
-![Event Detail Mobile](docs/wireframes/09_event_detail_mobile.png)
-
----
-
-#### Shopping Cart
-
-**Desktop**
-![Cart Desktop](docs/wireframes/10_cart_desktop.png)
-
-**Tablet**
-![Cart Tablet](docs/wireframes/11_cart_tablet.png)
-
-**Mobile**
-![Cart Mobile](docs/wireframes/12_cart_mobile.png)
-
----
-
-#### Login Page
-
-**Desktop**
-![Login Desktop](docs/wireframes/13_login_desktop.png)
-
-**Tablet**
-![Login Tablet](docs/wireframes/14_login_tablet.png)
-
-**Mobile**
-![Login Mobile](docs/wireframes/15_login_mobile.png)
-
----
-
-#### Signup Page
-
-**Desktop**
-![Signup Desktop](docs/wireframes/16_signup_desktop.png)
-
-**Tablet**
-![Signup Tablet](docs/wireframes/17_signup_tablet.png)
-
-**Mobile**
-![Signup Mobile](docs/wireframes/18_signup_mobile.png)
-
----
-
-#### Checkout Page
-
-**Desktop**
-![Checkout Desktop](docs/wireframes/19_checkout_desktop.png)
-
-**Tablet**
-![Checkout Tablet](docs/wireframes/20_checkout_tablet.png)
-
-**Mobile**
-![Checkout Mobile](docs/wireframes/21_checkout_mobile.png)
-
----
-
-#### Order Confirmation
-
-**Desktop**
-![Confirmation Desktop](docs/wireframes/22_confirmation_desktop.png)
-
-**Tablet**
-![Confirmation Tablet](docs/wireframes/23_confirmation_tablet.png)
-
-**Mobile**
-![Confirmation Mobile](docs/wireframes/24_confirmation_mobile.png)
 
 ### Accessibility Considerations
 
@@ -466,21 +376,7 @@ The application uses a relational database with carefully designed models to man
 
 ### Entity Relationship Diagram
 
-```
-User (Django built-in)
-  |
-  |-- UserProfile (1:1)
-  |
-  |-- Order (1:Many)
-       |
-       |-- OrderLineItem (1:Many)
-            |
-            |-- Ticket (Many:1)
-                 |
-                 |-- Event (Many:1)
-                      |
-                      |-- Category (Many:1)
-```
+![Database ERD](docs/images/erd.png)
 
 ### Data Models
 
