@@ -3,12 +3,11 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.views.decorators.http import require_POST
-from django.http import JsonResponse, HttpResponse
+from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from cart.cart import Cart
-from .models import Order, OrderLineItem, Ticket
+from .models import Order, OrderLineItem
 import stripe
-import uuid
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -72,7 +71,7 @@ def checkout(request):
                 'client_secret': intent.client_secret,
             })
 
-        except stripe.error.AuthenticationError as e:
+        except stripe.error.AuthenticationError:
             messages.error(request, 'Stripe authentication failed. Please check API keys.')
             order.delete()
             return redirect('cart:cart_detail')
