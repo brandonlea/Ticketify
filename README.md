@@ -206,10 +206,7 @@ The design emphasizes **clarity and simplicity** over complexity. Every element 
 
 #### Color Scheme
 
-![Color Palette](https://via.placeholder.com/800x100/4F46E5/ffffff?text=Primary+Indigo)
-![Color Palette](https://via.placeholder.com/800x100/9333EA/ffffff?text=Secondary+Purple)
-![Color Palette](https://via.placeholder.com/800x100/10B981/ffffff?text=Success+Green)
-![Color Palette](https://via.placeholder.com/800x100/EF4444/ffffff?text=Error+Red)
+![Color Palette](docs/images/colors.png)
 
 **Primary Palette:**
 - **Indigo (#4F46E5)**: Trust, professionalism, call-to-action buttons
