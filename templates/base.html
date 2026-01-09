@@ -5,7 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block title %}Ticketify{% endblock %}</title>
+    <title>{% block title %}Ticketify - Your Gateway to Amazing Events{% endblock %}</title>
+
+    <!-- Meta Description -->
+    <meta name="description" content="{% block description %}Discover and book tickets for concerts, sports events, theater shows, and more. Secure payment, real-time availability, and instant confirmation.{% endblock %}">
+    <meta name="keywords" content="event tickets, concert tickets, sports tickets, theater tickets, ticket booking, event discovery, live events">
+    <meta name="author" content="Brandon-Lea Price">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ticketify-ce5e7cf176b4.herokuapp.com/">
+    <meta property="og:title" content="{% block og_title %}Ticketify - Your Gateway to Amazing Events{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Discover and book tickets for concerts, sports events, theater shows, and more. Secure payment, real-time availability, and instant confirmation.{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}https://ticketify-ce5e7cf176b4.herokuapp.com/static/favicon/android-chrome-512x512.png{% endblock %}">
+
+    <!-- Twitter Card -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ticketify-ce5e7cf176b4.herokuapp.com/">
+    <meta property="twitter:title" content="{% block twitter_title %}Ticketify - Your Gateway to Amazing Events{% endblock %}">
+    <meta property="twitter:description" content="{% block twitter_description %}Discover and book tickets for concerts, sports events, theater shows, and more. Secure payment, real-time availability, and instant confirmation.{% endblock %}">
+    <meta property="twitter:image" content="{% block twitter_image %}https://ticketify-ce5e7cf176b4.herokuapp.com/static/favicon/android-chrome-512x512.png{% endblock %}">
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#4F46E5">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon/favicon.ico' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
+    <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
