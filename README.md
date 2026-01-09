@@ -122,6 +122,24 @@ Ticketify addresses these pain points by providing:
 - Intuitive navigation
 - Accessible design patterns
 
+### Application Screenshots
+
+#### Homepage
+![Homepage](docs/images/screenshots/01_homepage.png)
+
+#### Events List
+![Events List](docs/images/screenshots/02_events_list.png)
+
+#### Event Detail
+![Event Detail](docs/images/screenshots/03_event_detail.png)
+
+#### Shopping Cart
+![Shopping Cart](docs/images/screenshots/04_cart.png)
+
+#### User Authentication
+![Login Page](docs/images/screenshots/05_login.png)
+![Register Page](docs/images/screenshots/06_register.png)
+
 ### Future Features
 
 - Email notifications for order confirmations
@@ -1023,6 +1041,17 @@ Tested on the following devices/screen sizes:
 - ✅ Images scale appropriately
 - ✅ Text remains readable at all sizes
 - ✅ Buttons are touch-friendly on mobile (min 44x44px)
+
+**Responsive Screenshots:**
+
+Desktop (1920x1080):
+![Desktop Homepage](docs/images/screenshots/01_homepage.png)
+
+Tablet (768x1024):
+![Tablet Homepage](docs/images/screenshots/09_homepage_tablet.png)
+
+Mobile (375x667):
+![Mobile Homepage](docs/images/screenshots/07_homepage_mobile.png)
 
 ### Code Validation
 
