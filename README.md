@@ -686,7 +686,7 @@ class Event(models.Model):
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/brandonlea/Ticketify.git
 cd Ticketify
 ```
 
