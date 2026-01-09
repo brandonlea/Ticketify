@@ -1,6 +1,6 @@
 # Ticketify - Event Ticketing Platform
 
-![Ticketify](https://via.placeholder.com/1200x400/4F46E5/ffffff?text=Ticketify+-+Your+Gateway+to+Amazing+Events)
+![Ticketify](docs/images/website-devices.png)
 
 A professional, full-stack event ticketing platform built with Django that enables users to browse upcoming events, securely purchase tickets using Stripe, and manage their bookings. Event organizers can create and manage events, track sales, and monitor venue capacity through an intuitive admin interface.
 
