@@ -1134,6 +1134,30 @@ Page load times tested on Heroku deployment:
 - Cloudinary CDN for fast image delivery
 - WhiteNoise for efficient static file serving
 - select_related() and prefetch_related() to minimize database queries
+- Lazy loading images with explicit width/height attributes
+- Optimized Google Fonts loading (reduced weights, async loading)
+- Deferred JavaScript loading for non-critical scripts
+- DNS prefetch for external resources
+
+#### Lighthouse Performance Audit
+
+The application was tested using Google Lighthouse to measure performance, accessibility, best practices, and SEO scores.
+
+**Desktop Performance:**
+
+![Lighthouse Desktop Audit](docs/images/lighthouse/desktop.png)
+
+**Mobile Performance:**
+
+![Lighthouse Mobile Audit](docs/images/lighthouse/mobile.png)
+
+**Key Performance Metrics:**
+- ✅ Fast First Contentful Paint (FCP)
+- ✅ Reduced Total Blocking Time (TBT)
+- ✅ Optimized Cumulative Layout Shift (CLS)
+- ✅ Efficient image delivery via Cloudinary CDN
+- ✅ Accessible navigation with proper ARIA labels
+- ✅ SEO optimized with meta tags and semantic HTML
 
 ### Known Bugs and Fixes
 
