@@ -19,7 +19,7 @@
         <!-- Event Details -->
         <div class="lg:col-span-2">
             {% if event.image %}
-            <img src="{{ event.image.url }}" alt="{{ event.title }}" class="w-full h-96 object-cover rounded-lg mb-6">
+            <img src="{{ event.image.url }}" alt="{{ event.title }}" class="w-full h-96 object-cover rounded-lg mb-6" width="800" height="384">
             {% else %}
             <div class="w-full h-96 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-lg mb-6"></div>
             {% endif %}
